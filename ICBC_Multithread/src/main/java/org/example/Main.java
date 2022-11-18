@@ -1,5 +1,8 @@
 package org.example;
 
+import org.w3c.dom.ls.LSOutput;
+
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -14,39 +17,31 @@ public class Main {
 
             public void run() {
 
-//                try {
-//                    executor.awaitTermination(3, TimeUnit.SECONDS);
-//                    System.out.println("******************************************************************Finished all threads");
-//                } catch (InterruptedException e) {
-//                    throw new RuntimeException(e);
-//                }
+                System.out.println("Program Terminated, rest of the threads will process");
 
+                executor.shutdown();
+                try {
+                    // timeout 20000 ile thread islemleri 1-20 arasinda random bir degere ataniyor.
+                    if (!executor.awaitTermination(20000, TimeUnit.SECONDS)) {
+                        List<Runnable> droppedTasks = executor.shutdownNow();
+
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("All threads is finished. Good bye!");
             }
-
         });
+
+//        RejectedExecutionHandlerImpl n1 = new RejectedExecutionHandlerImpl();
         int i = 1;
         while (true) {
+
+            Thread.sleep(1000);
             Runnable worker = new WorkerThread(" "+ i);
             executor.execute(worker);
             i++;
-
         }
     }
 }
 
-
-
-
-
-//        while(true)
-//        for (int i = 1; i < 20; i++) {
-//            Runnable worker = new WorkerThread(" "+ i);
-//            executor.execute(worker);
-//        }
-//        executor.shutdown();
-//
-//        while (!executor.isTerminated()) {
-//
-//        }
-//
-//        System.out.println("Finished all threads");
