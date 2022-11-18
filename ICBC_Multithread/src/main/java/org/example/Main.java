@@ -19,7 +19,7 @@ public class Main {
 
                 executor.shutdown();
                 try {
-                    // timeout 20000 ile thread islemleri 1-20 arasinda random bir degere ataniyor.
+                    
                     if (!executor.awaitTermination(20000, TimeUnit.SECONDS)) {
                         List<Runnable> droppedTasks = executor.shutdownNow();
 
