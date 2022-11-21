@@ -76,17 +76,10 @@ public class App {
         String wait_time_to_check_thread_finish  = p.getProperty("WAIT_TIME_TO_CHECK_THREAD_FINISH");
 
         //kullanici 'data.properties'î dogru formatta doldurursa calisacak.
-        try{
-            initilizeService(Integer.parseInt(max_threads), Integer.parseInt(wait_time_to_check_thread_finish));
-            createNewJobs(Integer.parseInt(max_threads),Integer.parseInt(max_job_time),Integer.parseInt(wait_time_for_new_job));
-        }
 
-        //String deger girerse, java hata firlatacak. hata catch'lenip, kullaniciya mesaj batirip, default degerleri dondurecek.
-        catch (Exception e){
-            System.out.println("'data.properties' dosyasi yalnizca integer degerler alabilir.");
-            System.out.println("Default degerler ile uygulama calisiyor!");
+        if(p.isEmpty()){
+            System.out.println("empty");
 
-            //default degerler:
             int MAX_THREADS                      = 10;
             int MAX_JOB_TIME                     = 100000;
             int WAIT_TIME_FOR_NEW_JOB            = 1000;
@@ -95,11 +88,44 @@ public class App {
             initilizeService(MAX_THREADS, WAIT_TIME_TO_CHECK_THREAD_FINISH);
             createNewJobs(MAX_THREADS, MAX_JOB_TIME, WAIT_TIME_FOR_NEW_JOB);
 
+        }
+
+        try{
+            initilizeService(Integer.parseInt(max_threads), Integer.parseInt(wait_time_to_check_thread_finish));
+            createNewJobs(Integer.parseInt(max_threads),Integer.parseInt(max_job_time),Integer.parseInt(wait_time_for_new_job));
+        }
+
+        catch (Exception e){
+            System.out.println("'data.properties' dosyasi yalnizca integer degerler alabilir.");
+            System.exit(0);
+            }
+
+        if(p.isEmpty()){
+            System.out.println("empty");
+
+
+            }
+
+        //String deger girerse, java hata firlatacak. hata catch'lenip, kullaniciya mesaj batirip, default degerleri dondurecek.
+//        catch (Exception e){
+//            System.out.println("'data.properties' dosyasi yalnizca integer degerler alabilir.");
+//            System.out.println("Default degerler ile uygulama calisiyor!");
+//
+//            //default degerler:
+//            int MAX_THREADS                      = 10;
+//            int MAX_JOB_TIME                     = 100000;
+//            int WAIT_TIME_FOR_NEW_JOB            = 1000;
+//            int WAIT_TIME_TO_CHECK_THREAD_FINISH = 1000;
+//
+//            initilizeService(MAX_THREADS, WAIT_TIME_TO_CHECK_THREAD_FINISH);
+//            createNewJobs(MAX_THREADS, MAX_JOB_TIME, WAIT_TIME_FOR_NEW_JOB);
+
+
 
 
         }
-    }
-    
+
+
     public static void main(String[] args) throws IOException {
 
         App app = new App();
