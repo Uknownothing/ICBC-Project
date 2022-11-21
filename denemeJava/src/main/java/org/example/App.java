@@ -69,17 +69,17 @@ public class App {
         FileInputStream fis = new FileInputStream("src/main/java/data.properties");
         p.load(fis);
 
-
+        //kullanici 'data.properties'î dogru formatta doldurdugu senaryoda calisacak.
         String max_threads = p.getProperty("MAX_THREADS");
         String max_job_time = p.getProperty("MAX_JOB_TIME");
         String wait_time_for_new_job = p.getProperty("WAIT_TIME_FOR_NEW_JOB");
         String wait_time_to_check_thread_finish  = p.getProperty("WAIT_TIME_TO_CHECK_THREAD_FINISH");
 
-        //kullanici 'data.properties'î dogru formatta doldurursa calisacak.
-
+        //'data.properties' dosyasinin bos olup olmadigini kontrol ediyoruz. Bos oldugu taktirde default degerler calisacak.
         if(p.isEmpty()){
-            System.out.println("empty");
+            System.out.println("data.properties dosyasi bos. defaul degerler uygulanıyor.");
 
+            //Default degerler
             int MAX_THREADS                      = 10;
             int MAX_JOB_TIME                     = 100000;
             int WAIT_TIME_FOR_NEW_JOB            = 1000;
@@ -90,6 +90,8 @@ public class App {
 
         }
 
+        //Eger dosya doluysa, fakat kullanici integer degerden baska, alfasayisal bir deger girerse, hata mesajı catch'lenip kullanıcıya bastırılacak,
+        // ve program calismayi durduracak.
         try{
             initilizeService(Integer.parseInt(max_threads), Integer.parseInt(wait_time_to_check_thread_finish));
             createNewJobs(Integer.parseInt(max_threads),Integer.parseInt(max_job_time),Integer.parseInt(wait_time_for_new_job));
@@ -97,33 +99,9 @@ public class App {
 
         catch (Exception e){
             System.out.println("'data.properties' dosyasi yalnizca integer degerler alabilir.");
+            System.out.println("lütfen sayisal bir deger girin.");
             System.exit(0);
             }
-
-        if(p.isEmpty()){
-            System.out.println("empty");
-
-
-            }
-
-        //String deger girerse, java hata firlatacak. hata catch'lenip, kullaniciya mesaj batirip, default degerleri dondurecek.
-//        catch (Exception e){
-//            System.out.println("'data.properties' dosyasi yalnizca integer degerler alabilir.");
-//            System.out.println("Default degerler ile uygulama calisiyor!");
-//
-//            //default degerler:
-//            int MAX_THREADS                      = 10;
-//            int MAX_JOB_TIME                     = 100000;
-//            int WAIT_TIME_FOR_NEW_JOB            = 1000;
-//            int WAIT_TIME_TO_CHECK_THREAD_FINISH = 1000;
-//
-//            initilizeService(MAX_THREADS, WAIT_TIME_TO_CHECK_THREAD_FINISH);
-//            createNewJobs(MAX_THREADS, MAX_JOB_TIME, WAIT_TIME_FOR_NEW_JOB);
-
-
-
-
-        }
 
 
     public static void main(String[] args) throws IOException {
