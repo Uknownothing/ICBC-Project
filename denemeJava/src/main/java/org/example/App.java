@@ -90,7 +90,7 @@ public class App {
 
         }
 
-        //Eger dosya doluysa, fakat kullanici integer degerden baska, alfasayisal bir deger girerse, hata mesajı catch'lenip kullanıcıya bastırılacak,
+        //Eger dosya doluysa, fakat kullanici integer degerden baska alfasayisal bir deger girerse, hata mesajı catch'lenip kullanıcıya bastırılacak
         // ve program calismayi durduracak.
         try{
             initilizeService(Integer.parseInt(max_threads), Integer.parseInt(wait_time_to_check_thread_finish));
