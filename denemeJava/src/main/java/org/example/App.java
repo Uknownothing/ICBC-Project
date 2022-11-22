@@ -73,16 +73,16 @@ public class App {
         String max_threads = p.getProperty("MAX_THREADS");
         String max_job_time = p.getProperty("MAX_JOB_TIME");
         String wait_time_for_new_job = p.getProperty("WAIT_TIME_FOR_NEW_JOB");
-        String wait_time_to_check_thread_finish  = p.getProperty("WAIT_TIME_TO_CHECK_THREAD_FINISH");
+        String wait_time_to_check_thread_finish = p.getProperty("WAIT_TIME_TO_CHECK_THREAD_FINISH");
 
         //'data.properties' dosyasinin bos olup olmadigini kontrol ediyoruz. Bos oldugu taktirde default degerler calisacak.
-        if(!p.containsValue(fis)){
+        if (!p.containsValue(fis)) {
             System.out.println("data.properties dosyasi bos. defaul degerler uygulanıyor.");
 
             //Default degerler
-            int MAX_THREADS                      = 10;
-            int MAX_JOB_TIME                     = 100000;
-            int WAIT_TIME_FOR_NEW_JOB            = 1000;
+            int MAX_THREADS = 10;
+            int MAX_JOB_TIME = 100000;
+            int WAIT_TIME_FOR_NEW_JOB = 1000;
             int WAIT_TIME_TO_CHECK_THREAD_FINISH = 1000;
 
             initilizeService(MAX_THREADS, WAIT_TIME_TO_CHECK_THREAD_FINISH);
@@ -92,19 +92,19 @@ public class App {
 
         //Eger dosya doluysa, fakat kullanici integer degerden baska, alfasayisal bir deger girerse, hata mesajı catch'lenip kullanıcıya bastırılacak,
         // ve program calismayi durduracak.
-        try{
-            initilizeService(Integer.parseInt(max_threads), Integer.parseInt(wait_time_to_check_thread_finish));
-            createNewJobs(Integer.parseInt(max_threads),Integer.parseInt(max_job_time),Integer.parseInt(wait_time_for_new_job));
-        }
 
-        catch (Exception e){
-            System.out.println("'data.properties' dosyasi yalnizca integer degerler alabilir.");
-            System.out.println("lütfen sayisal bir deger girin.");
-            System.exit(0);
+        else {
+            try {
+                initilizeService(Integer.parseInt(max_threads), Integer.parseInt(wait_time_to_check_thread_finish));
+                createNewJobs(Integer.parseInt(max_threads), Integer.parseInt(max_job_time), Integer.parseInt(wait_time_for_new_job));
+            } catch (Exception e) {
+                System.out.println("'data.properties' dosyasi yalnizca integer degerler alabilir.");
+                System.out.println("lütfen sayisal bir deger girin.");
+                System.exit(0);
             }
-
-     }
-
+        }
+    }
+  
 
     public static void main(String[] args) throws IOException {
 
