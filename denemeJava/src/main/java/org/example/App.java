@@ -76,7 +76,7 @@ public class App {
         String wait_time_to_check_thread_finish  = p.getProperty("WAIT_TIME_TO_CHECK_THREAD_FINISH");
 
         //'data.properties' dosyasinin bos olup olmadigini kontrol ediyoruz. Bos oldugu taktirde default degerler calisacak.
-        if(p.isEmpty()){
+        if(!p.containsValue(fis)){
             System.out.println("data.properties dosyasi bos. defaul degerler uygulanıyor.");
 
             //Default degerler
@@ -90,7 +90,7 @@ public class App {
 
         }
 
-        //Eger dosya doluysa, fakat kullanici integer degerden baska alfasayisal bir deger girerse, hata mesajı catch'lenip kullanıcıya bastırılacak
+        //Eger dosya doluysa, fakat kullanici integer degerden baska, alfasayisal bir deger girerse, hata mesajı catch'lenip kullanıcıya bastırılacak,
         // ve program calismayi durduracak.
         try{
             initilizeService(Integer.parseInt(max_threads), Integer.parseInt(wait_time_to_check_thread_finish));
@@ -102,6 +102,8 @@ public class App {
             System.out.println("lütfen sayisal bir deger girin.");
             System.exit(0);
             }
+
+     }
 
 
     public static void main(String[] args) throws IOException {
